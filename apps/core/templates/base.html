@@ -34,6 +34,9 @@
                 </div>
             </div>
             <div class="navbar-end">
+                {% for category in menu_categories %}
+                    <a href="{% url 'category_detail' category.slug %}" class="navbar-item">{{ category.title }}</a>
+                {% endfor %}
                 <a href="{% url 'contact' %}" class="navbar-item">Contact hello</a>
             </div>
         </div>
