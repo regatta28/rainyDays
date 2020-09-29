@@ -11,7 +11,7 @@
         {% for item in cart %}
             {% with product=item.product %}
                 <p>{{ product.title }}</p>
-                <button @click="removeProduct({{ product.id }})">Remove from Cart</button>
+                <button @click="removeFromCart({{ product.id }})">Remove from Cart</button>
             {% endwith %}
         {% endfor %}
     {% else %}
@@ -34,9 +34,29 @@
             console.log('Mounted');
         },
         methods: {
-            addToCart(product_id){
+            removeFromCart(product_id) {
+                console.log('Product_id', product_id);
 
+                var data = {
+                    'product_id': product_id, 
+                    };
+                fetch('/api/remove_from_cart/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    credentials: 'same-origin',
+                    body:JSON.stringify(data)
+                })
+                .then((response) => {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log('Error 2');
+                })
             }
+
         }
     });
 </script>
