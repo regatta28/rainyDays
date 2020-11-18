@@ -8,9 +8,23 @@
     <h1 class="title">Cart</h1>
 
     {% if cart %}
+        <div class="table">
+            <table class="table">
+                <thead>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </thead>
+            </table>
+        </div>
         {% for item in cart %}
             {% with product=item.product %}
-                <p>{{ product.title }}</p>
+                <tr>
+                    <td>{{ product.title }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.total_price }}</td>
+                </tr>
+
                 <button @click="removeFromCart({{ product.id }})">Remove from Cart</button>
             {% endwith %}
         {% endfor %}
